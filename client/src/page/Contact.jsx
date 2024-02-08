@@ -2,12 +2,25 @@ import { useState } from "react"
 
 
 const Contact = () => {
-  const [userName,setUserName]=useState("");
-  const [email,setEmail]=useState("");
-  const [message,setMessage]=useState("");
+  const [contact,setContact]=useState({
+    username:"",
+    email:"",
+    maeesage:""
+  });
+ 
+
+  const handleInput=(e)=>{
+    let name=e.target.name;
+    let value=e.target.value;
+
+    setContact({
+      ...contact,
+      [name]:value
+    })
+  }
   const handleSubmit=(e)=>{
     e.preventDefault()
-    console.log(userName,email,message)
+    console.log(contact)
 
   }
   return (
@@ -25,13 +38,14 @@ const Contact = () => {
             <label>Username</label>
             <input 
               type="text"
-              name="userName"
-              value={userName}
-              id="username"
+              name="username"
+              value={contact.username}
+              className="form-control"
+          
               placeholder="Enter user name"
               required
               autoComplete="off"
-              onChange={(e)=>setUserName(e.target.value)}
+              onChange={handleInput}
             />
           </div>
 
@@ -40,12 +54,12 @@ const Contact = () => {
             <input 
               type="email"
               name="email"
-              value={email}
+              value={contact.email}
               id="email"
               placeholder="Enter Email"
               required
               autoComplete="off"
-              onChange={(e)=>setEmail(e.target.value)}
+              onChange={handleInput}
             />
           </div>
 
@@ -54,13 +68,13 @@ const Contact = () => {
             <textarea 
               type="text"
               name="message"
-              value={message}
+              value={contact.message}
               cols='30'
               rows='8'
               id="message"
               required
               autoComplete="off"
-              onChange={(e)=>setMessage(e.target.value)}
+              onChange={handleInput}
             />
           </div>
           <button className="btn btn-primary btn-sm mt-1" type="submit">submit</button>

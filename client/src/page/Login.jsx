@@ -2,12 +2,23 @@ import { useState } from "react"
 
 
 const Login = () => {
-  const[email,setEmail]=useState("");
-  const[password,setPassword]=useState("");
+  const[user,setUser]=useState({
+    email:"",
+    password:""
+  });
+  const handleInput=(e)=>{
+    let name=e.target.name;
+    let value=e.target.value;
+
+    setUser({
+      ...user,
+      [name]:value
+    })
+  }
 
   const handleSubmit=(e)=>{
     e.preventDefault();
-    console.log(email,password)
+    console.log(user)
   }
 
   return (
@@ -26,9 +37,9 @@ const Login = () => {
           <input 
             type="email"
             name='email'
-            value={email}
+            value={user.email}
             placeholder="enter the email "
-            onChange={(e)=>setEmail(e.target.value)}
+            onChange={handleInput}
             required
             autoComplete="off"
           />
@@ -39,9 +50,9 @@ const Login = () => {
           <input 
             type="password"
             name='password'
-            value={password}
+            value={user.password}
             placeholder="enter the your password "
-            onChange={(e)=>setPassword(e.target.value)}
+            onChange={handleInput}
             required
             autoComplete="off"
           />
