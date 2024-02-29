@@ -13,13 +13,16 @@ try {
     let {username,email,phone,password}=req.body;
     let existingUser= await User.findOne({email });
     if(existingUser){
-        res.status(409).send("email or user name already presant");
+        res.status(409).send("email  already presant");
     }
+
+   
  const createdUser = await User.create({username,email,phone,password})
 //   console.log(createdUser);
- res.status(200).json({
+ res.status(201).json({
     message:"User created Successfully",
-    createdUser,
+  token:await createdUser.generateToken(),
+  userId:createdUser._id.toString(),
  })
    
 } catch (error) {
