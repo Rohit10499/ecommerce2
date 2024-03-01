@@ -37,7 +37,6 @@ const Contact = () => {
             <form onSubmit={handleSubmit}>
               <div className="row">
                 <div className="col-3">
-   
                   <label>Username</label>
                 </div>
                 <div className="col-9">
@@ -55,11 +54,9 @@ const Contact = () => {
 
               <div className="row">
                 <div className="col-3">
-            
                   <label>Email</label>
                 </div>
                 <div className="col-9">
-           
                   <input
                     type="email"
                     name="email"
@@ -72,21 +69,21 @@ const Contact = () => {
                   />
                 </div>
               </div>
-    
+
               <div className="row">
-              <div className="col-3">Message</div>
-              <div className="col-9">
-                <textarea
-                  type="text"
-                  name="message"
-                  value={contact.message}
-                  cols="30"
-                  rows="8"
-                  id="message"
-                  required
-                  autoComplete="off"
-                  onChange={handleInput}
-                />
+                <div className="col-3">Message</div>
+                <div className="col-9">
+                  <textarea
+                    type="text"
+                    name="message"
+                    value={contact.message}
+                    cols="30"
+                    rows="8"
+                    id="message"
+                    required
+                    autoComplete="off"
+                    onChange={handleInput}
+                  />
                 </div>
               </div>
               <button className="btn btn-primary btn-sm mt-1" type="submit">

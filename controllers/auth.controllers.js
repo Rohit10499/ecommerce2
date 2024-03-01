@@ -1,5 +1,5 @@
 import { User } from "../models/user.models.js";
-import bcrypt from "bcrypt";
+// import bcrypt from "bcrypt";
 
 const home = async (req, res) => {
   try {
@@ -14,7 +14,7 @@ const register = async (req, res) => {
     let { username, email, phone, password } = req.body;
     let existingUser = await User.findOne({ email });
     if (existingUser) {
-      res.status(409).send("email  already presant");
+      return res.status(409).send("email  already presant");
     }
 
     const createdUser = await User.create({ username, email, phone, password });
@@ -38,7 +38,7 @@ const login = async (req, res) => {
     if (!userExist) {
       return res.status(400).json({ message: "Invalide Credentials" });
     }
-    const user=await userExist.comparePassword(password);
+    const user = await userExist.comparePassword(password);
     // const user = await bcrypt.compare(password, userExist.password);
     if (user) {
       res.status(200).json({
@@ -46,8 +46,8 @@ const login = async (req, res) => {
         token: await userExist.generateToken(),
         userId: userExist._id.toString(),
       });
-    }else{
-        res.status(401).json({message:"Invalide email or password"})
+    } else {
+      res.status(401).json({ message: "Invalide email or password" });
     }
   } catch (error) {
     console.log(error);

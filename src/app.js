@@ -14,6 +14,7 @@ app.use(express.json());
 import authRouter from "../routes/auth.routes.js";
 app.use("/api/v1/user",authRouter)
 
+
 export {
     app
 }
