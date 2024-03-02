@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAuth } from "../store/auth";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const storeTokenInLS = useAuth();
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -18,9 +23,28 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
+    try {
+      const response = await axios.post(
+        "http://localhost:2410/api/v1/user/register",
+        user
+      );
+      if (response.status == 201) {
+        storeTokenInLS(response.data.token);
+
+        // localStorage.setItem("token", response.data.token);
+        setUser({
+          username: "",
+          email: "",
+          phone: "",
+          password: "",
+        });
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log("error in posting in data", error);
+    }
   };
   return (
     <>
@@ -57,7 +81,6 @@ const Register = () => {
                   name="email"
                   placeholder="enter your email"
                   value={user.email}
-               
                   onChange={handleInput}
                   required
                   autoComplete="off"
