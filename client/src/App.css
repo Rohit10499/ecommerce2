@@ -1,3 +1,13 @@
+.ccontant {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 
 
+}
 
+.mainError {
+    font-size: 200px;
+    text-align: center;
+}
