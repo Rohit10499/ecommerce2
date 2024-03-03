@@ -5,7 +5,7 @@ import { useAuth } from "../store/auth";
 
 const Register = () => {
   const navigate = useNavigate();
-  const storeTokenInLS = useAuth();
+  const { storeTokenInLS } = useAuth();
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -30,6 +30,7 @@ const Register = () => {
         "http://localhost:2410/api/v1/user/register",
         user
       );
+
       if (response.status == 201) {
         storeTokenInLS(response.data.token);
 

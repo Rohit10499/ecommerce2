@@ -5,7 +5,7 @@ import { useAuth } from "../store/auth";
 
 const Login = () => {
   const navigate = useNavigate();
-  const storeTokenInLS = useAuth();
+  const { storeTokenInLS } = useAuth();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -28,12 +28,15 @@ const Login = () => {
         user
       );
       if (response.statusText === "OK") {
+        storeTokenInLS(response.data.token);
+
         alert("Login successfull");
         setUser({
           email: "",
           password: "",
         });
-        storeTokenInLS(response.data.token);
+
+        // console.log(response.data.taken);
         // localStorage.setItem("token", response.data.token);
         navigate("/");
       }
@@ -49,7 +52,7 @@ const Login = () => {
         <div className="col-6">
           <img
             src="/images/login.png"
-            alt="a girl trying to do registration"
+            alt="trying to do registration"
             width="400"
             height="400"
           />
