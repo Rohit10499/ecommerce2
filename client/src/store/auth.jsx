@@ -1,8 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState("");
 
   const storeTokenInLS = (serverToken) => {
     return localStorage.setItem("token", serverToken);
@@ -14,8 +16,29 @@ export const AuthProvider = ({ children }) => {
     return localStorage.removeItem("token");
   };
 
+  //JWT Authentication -to get the currently loggedIN user data
+  const userAuthentication = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:2410/api/v1/user/user",
+        { headers: { Authorization: `${token}` } }
+      );
+      if (response.statusText === "OK") {
+        setUser(response.data.userData);
+      }
+    } catch (error) {
+      console.error("Error fetching user data");
+    }
+  };
+
+  useEffect(() => {
+    userAuthentication();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ storeTokenInLS, LogoutUser, isLoggedIn }}>
+    <AuthContext.Provider
+      value={{ storeTokenInLS, LogoutUser, isLoggedIn, user }}
+    >
       {children}
     </AuthContext.Provider>
   );

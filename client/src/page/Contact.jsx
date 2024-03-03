@@ -1,11 +1,24 @@
 import { useState } from "react";
+import { useAuth } from "../store/auth";
+import axios from "axios";
 
 const Contact = () => {
+  const { user } = useAuth();
+  const [userData, setUserData] = useState(true);
   const [contact, setContact] = useState({
     username: "",
     email: "",
     message: "",
   });
+  if (userData && user) {
+    // console.log(user);
+    setContact({
+      username: user.username,
+      email: user.email,
+      message: "",
+    });
+    setUserData(false);
+  }
 
   const handleInput = (e) => {
     let name = e.target.name;
@@ -16,9 +29,25 @@ const Contact = () => {
       [name]: value,
     });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(contact);
+    try {
+      const response = await axios.post(
+        "http://localhost:2410/api/v1/form/contact",
+        contact
+      );
+      console.log(response);
+      if (response.statusText === "OK") {
+        setContact({
+          username: user.username,
+          email: user.email,
+          message: "",
+        });
+        alert("Message sent successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>

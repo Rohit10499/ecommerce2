@@ -1,9 +1,14 @@
-
+import { useAuth } from "../store/auth";
 
 const About = () => {
-  return (
-    <div>About</div>
-  )
-}
+  const { user } = useAuth();
 
-export default About
+  return (
+    <div>
+      <h4>Welcome {user ? user.username : "to our website"}</h4>
+      About
+    </div>
+  );
+};
+
+export default About;
