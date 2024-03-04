@@ -13,7 +13,9 @@ app.use(express.json());
 
 import authRouter from "../routes/auth.routes.js";
 import contactRoute from "../routes/contacts.routes.js";
+import serviceRoute from "../routes/service.routes.js";
 app.use("/api/v1/user", authRouter);
 app.use("/api/v1/form", contactRoute);
+app.use("/api/v1/data", serviceRoute);
 
 export { app };

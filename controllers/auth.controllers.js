@@ -14,7 +14,7 @@ const register = async (req, res) => {
     let { username, email, phone, password } = req.body;
     let existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(409).send("email  already presant");
+      return res.status(409).json({ message: "email  already presant" });
     }
 
     const createdUser = await User.create({ username, email, phone, password });
@@ -42,7 +42,7 @@ const login = async (req, res) => {
     // const user = await bcrypt.compare(password, userExist.password);
     if (user) {
       res.status(200).json({
-        msg: "Login Successful",
+        message: "Login Successful",
         token: await userExist.generateToken(),
         userId: userExist._id.toString(),
       });

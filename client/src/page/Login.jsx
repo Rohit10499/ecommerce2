@@ -30,18 +30,22 @@ const Login = () => {
       if (response.statusText === "OK") {
         storeTokenInLS(response.data.token);
 
-        alert("Login successfull");
         setUser({
           email: "",
           password: "",
         });
+        alert(response.data.message);
 
-        // console.log(response.data.taken);
-        // localStorage.setItem("token", response.data.token);
         navigate("/");
+      } else {
+        alert("somethings wents worng");
       }
     } catch (error) {
-      alert("invalide password or email");
+      alert(
+        error.response.data.extraDeatils
+          ? error.response.data.extraDeatils
+          : error.response.data.message
+      );
       console.log("error in login", error);
     }
   };

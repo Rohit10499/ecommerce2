@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
+  const [services, setServices] = useState("");
 
   const storeTokenInLS = (serverToken) => {
     return localStorage.setItem("token", serverToken);
@@ -31,13 +32,28 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const getServices = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:2410/api/v1/data/service"
+      );
+
+      if (response.statusText === "OK") {
+        setServices(response.data.msg);
+      }
+    } catch (error) {
+      console.log("error in getting servecies data", error);
+    }
+  };
+
   useEffect(() => {
+    getServices();
     userAuthentication();
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ storeTokenInLS, LogoutUser, isLoggedIn, user }}
+      value={{ storeTokenInLS, LogoutUser, isLoggedIn, user, services }}
     >
       {children}
     </AuthContext.Provider>

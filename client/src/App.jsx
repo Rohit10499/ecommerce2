@@ -9,6 +9,7 @@ import Contact from "./page/Contact";
 import Navbar from "./components/Navbar";
 import Error from "./page/Error";
 import Logout from "./page/Logout";
+import Services from "./page/Services";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/services" element={<Services />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>

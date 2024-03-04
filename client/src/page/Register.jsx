@@ -30,7 +30,7 @@ const Register = () => {
         "http://localhost:2410/api/v1/user/register",
         user
       );
-
+      console.log("response from server", response);
       if (response.status == 201) {
         storeTokenInLS(response.data.token);
 
@@ -41,17 +41,24 @@ const Register = () => {
           phone: "",
           password: "",
         });
+        alert("register Success", response.data.message);
         navigate("/login");
+      } else {
+        alert(response.data.message);
       }
     } catch (error) {
-      console.log("error in posting in data", error);
+      alert(
+        error.response.data.extraDeatils
+          ? error.response.data.extraDeatils
+          : error.response.data.message
+      );
     }
   };
   return (
     <>
       <div className="container ">
         <div className="row w-100">
-          <div className=" col-6 ">
+          <div className=" col-md-6 ">
             <img
               src="/images/register.png"
               alt="a girl trying to do registration"
@@ -59,9 +66,9 @@ const Register = () => {
               height="400"
             />
           </div>
-          <div className=" col-6  text-center ">
+          <div className=" col-md-6  text-center ">
             <h1>REGISTRATION FORM</h1>
-            <form className="from-group" onSubmit={handleSubmit}>
+            <form className="form-group" onSubmit={handleSubmit}>
               <div>
                 <label>username</label>
                 <input
