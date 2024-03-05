@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,19 +35,18 @@ const Login = () => {
           email: "",
           password: "",
         });
-        alert(response.data.message);
+        toast.success(response.data.message);
 
         navigate("/");
       } else {
-        alert("somethings wents worng");
+        toast.error("somethings wents worng");
       }
     } catch (error) {
-      alert(
+      toast.error(
         error.response.data.extraDeatils
           ? error.response.data.extraDeatils
           : error.response.data.message
       );
-      console.log("error in login", error);
     }
   };
 

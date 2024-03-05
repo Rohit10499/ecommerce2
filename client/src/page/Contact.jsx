@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useAuth } from "../store/auth";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const { user } = useAuth();
   const [userData, setUserData] = useState(true);
   const [contact, setContact] = useState({
-    username: "",
-    email: "",
+    username: user.username,
+    email: user.email,
     message: "",
   });
   if (userData && user) {
@@ -36,17 +37,17 @@ const Contact = () => {
         "http://localhost:2410/api/v1/form/contact",
         contact
       );
-      console.log(response);
+      // console.log(response);
       if (response.statusText === "OK") {
         setContact({
-          username: user.username,
-          email: user.email,
+          username: "",
+          email: "",
           message: "",
         });
-        alert("Message sent successfully");
+        toast.success("Message sent successfully");
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message);
     }
   };
   return (

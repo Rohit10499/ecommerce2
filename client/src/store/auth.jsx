@@ -6,8 +6,10 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
   const [services, setServices] = useState("");
+  const authorizactionToken = `${token}`;
 
   const storeTokenInLS = (serverToken) => {
+    setToken(serverToken);
     return localStorage.setItem("token", serverToken);
   };
 
@@ -22,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.get(
         "http://localhost:2410/api/v1/user/user",
-        { headers: { Authorization: `${token}` } }
+        { headers: { Authorization: authorizactionToken } }
       );
       if (response.statusText === "OK") {
         setUser(response.data.userData);
@@ -53,7 +55,14 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ storeTokenInLS, LogoutUser, isLoggedIn, user, services }}
+      value={{
+        storeTokenInLS,
+        LogoutUser,
+        isLoggedIn,
+        user,
+        services,
+        authorizactionToken,
+      }}
     >
       {children}
     </AuthContext.Provider>

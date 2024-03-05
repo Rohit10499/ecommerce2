@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -41,13 +42,13 @@ const Register = () => {
           phone: "",
           password: "",
         });
-        alert("register Success", response.data.message);
-        navigate("/login");
+        toast.success("register Success", response.data.message);
+        navigate("/");
       } else {
-        alert(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
-      alert(
+      toast.error(
         error.response.data.extraDeatils
           ? error.response.data.extraDeatils
           : error.response.data.message
