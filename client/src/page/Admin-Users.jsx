@@ -23,11 +23,35 @@ const AdminUsers = () => {
 
   return (
     <>
-      <div className="data">
-        {users.map((cu, index) => (
-          <h4 key={index}> {cu.username}</h4>
-        ))}
-      </div>
+      <section className="admin-user-section">
+        <div className="container">
+          <h1>Admin User Data</h1>
+        </div>
+        <div className="container admin-users">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Update</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user, index) => (
+                <tr key={index}>
+                  <td>{user.username}</td>
+                  <td>{user.email}</td>
+                  <td>{user.phone}</td>
+                  <td className="updateLink">Edit</td>
+                  <td>Delete</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </>
   );
 };

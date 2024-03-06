@@ -13,3 +13,47 @@
     font-size: 200px;
     text-align: center;
 }
+
+body tr {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(10rem, 1fr));
+
+    align-items: center;
+    box-shadow: 0 0.1rem 0 grey;
+    margin-bottom: 5px;
+    border-bottom: 1px solid transparent;
+    color: var(--bg-color);
+
+    &:last-child {
+        box-shadow: none;
+    }
+}
+
+/* 
+.updateLink {
+    background-color: #cff6dd;
+    color: #1fa750;
+    border-radius: 3rem;
+    padding: .5rem 4rem;
+
+    &:hover {
+        color: #cff6dd;
+        background-color: #1fa750;
+    }
+} */
+
+table {
+    background-color: #fff;
+    box-shadow: rgba(255, 255, 255, 0.23) 0px 7px 29px 0px;
+    border-collapse: collapse;
+    border-radius: 1rem;
+}
+
+.td {
+    font-size: 1.7rem;
+    letter-spacing: 0.1rem;
+    padding: 1rem;
+    text-align: center;
+    color: var(--dark-color);
+    width: 3rem;
+}
