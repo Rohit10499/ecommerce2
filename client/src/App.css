@@ -29,18 +29,36 @@ body tr {
     }
 }
 
-/* 
+
 .updateLink {
+
     background-color: #cff6dd;
     color: #1fa750;
-    border-radius: 3rem;
-    padding: .5rem 4rem;
+    border-radius: 1rem;
+    padding: 4px 8px;
+
 
     &:hover {
         color: #cff6dd;
         background-color: #1fa750;
     }
-} */
+}
+
+
+.deleteLink {
+    background-color: #f0a98b;
+    color: #be401e;
+    border-radius: 1rem;
+    padding: 4px 8px;
+
+
+    &:hover {
+        color: #f1a779;
+        background-color: #be401e;
+    }
+}
+
+
 
 table {
     background-color: #fff;
