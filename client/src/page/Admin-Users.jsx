@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const AdminUsers = () => {
   const { authorizactionToken } = useAuth();
@@ -64,7 +65,7 @@ const AdminUsers = () => {
                   <td>{user.email}</td>
                   <td>{user.phone}</td>
                   <td>
-                    <button className="updateLink">Edit</button>
+                    <Link to={`/admin/users/${user._id}/edit`}>Edit</Link>
                   </td>
                   <td>
                     <button

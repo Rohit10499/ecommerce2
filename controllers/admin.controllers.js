@@ -40,4 +40,33 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-export { getAllUsers, getAllContacts, deleteUser };
+const getUserById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = await User.findOne({ _id: id }, { password: 0 });
+    return res.status(200).json({ data });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+const updateUserById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const updatedUserData = req.body;
+    const updateData = await User.updateOne(
+      { _id: id },
+      { $set: updatedUserData }
+    );
+    if (!updateData) {
+      return res.status(404).json({ Message: "User not found" });
+    }
+    res.status(200).json({ updateData });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+export { getAllUsers, getAllContacts, deleteUser, getUserById, updateUserById };
