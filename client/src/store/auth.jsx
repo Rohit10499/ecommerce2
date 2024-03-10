@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [services, setServices] = useState("");
   const authorizactionToken = `${token}`;
+  const [isLoading, setLoading] = useState(true);
 
   const storeTokenInLS = (serverToken) => {
     setToken(serverToken);
@@ -22,12 +23,18 @@ export const AuthProvider = ({ children }) => {
   //JWT Authentication -to get the currently loggedIN user data
   const userAuthentication = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         "http://localhost:2410/api/v1/user/user",
         { headers: { Authorization: authorizactionToken } }
       );
       if (response.statusText === "OK") {
         setUser(response.data.userData);
+        setLoading(false);
+      } else {
+        console.error("Error fetching user data");
+
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error fetching user data");
@@ -62,6 +69,7 @@ export const AuthProvider = ({ children }) => {
         user,
         services,
         authorizactionToken,
+        isLoading,
       }}
     >
       {children}

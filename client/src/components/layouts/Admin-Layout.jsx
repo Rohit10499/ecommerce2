@@ -1,7 +1,16 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { FaUser, FaEnvelope, FaHome, FaRegListAlt } from "react-icons/fa";
+import { useAuth } from "../../store/auth";
 
 const AdminLayout = () => {
+  const navigate = useNavigate();
+  const { user, isLoading } = useAuth();
+  if (isLoading) {
+    return <h1>Loading ...</h1>;
+  }
+  if (!user.isAdmin) {
+    navigate("/");
+  }
   return (
     <>
       <div className="container">
@@ -25,7 +34,6 @@ const AdminLayout = () => {
           </li>
           <li>
             <NavLink to="/">
-              {" "}
               <FaHome />
               Home
             </NavLink>
