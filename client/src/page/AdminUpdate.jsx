@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "../store/auth";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AdminUpdate = () => {
   const { authorizactionToken } = useAuth();
+  const navigate = useNavigate();
   const params = useParams();
   const [data, setdata] = useState({
     username: "",
@@ -32,14 +34,31 @@ const AdminUpdate = () => {
       console.log(error);
     }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(
+        `http://localhost:2410/api/v1/admin/users/update/${params.id}`,
+        data,
+        { headers: { Authorization: authorizactionToken } }
+      );
+      console.log(response);
+      if (response.statusText === "OK") {
+        toast.success("Update successfully");
+        navigate("/admin/users");
+      } else {
+        toast.error("something went wrong");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+    console.log(data);
+  };
   useEffect(() => {
     getSingleUserData();
   }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(data);
-  };
 
   return (
     <>

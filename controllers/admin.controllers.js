@@ -68,5 +68,20 @@ const updateUserById = async (req, res, next) => {
     next(error);
   }
 };
+const getContactsByIdandDelete = async (req, res, next) => {
+  const { id } = req.params;
+  const deletedMessage = await Contact.deleteOne({ _id: id });
+  if (!deletedMessage) {
+    return res.status(404).json({ message: "Message not deleted" });
+  }
+  res.status(200).json({ message: "User Message deleted successfully" });
+};
 
-export { getAllUsers, getAllContacts, deleteUser, getUserById, updateUserById };
+export {
+  getAllUsers,
+  getAllContacts,
+  deleteUser,
+  getUserById,
+  updateUserById,
+  getContactsByIdandDelete,
+};
